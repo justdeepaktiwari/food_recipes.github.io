@@ -1,0 +1,1 @@
+<div class="fluid-container bg-secondary text-light text-center m-0 p-0">All copy right reserved || c @ 2021</div>
