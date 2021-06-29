@@ -29,29 +29,30 @@
     <?php
         session_start();
 
-        if (isset($_POST["userid"]) && isset($_POST["password"])) {
+        if (isset($_POST["userid"]) && isset($_POST["password"])  && !isset($_SESSION["userid"])) {
             
             $userid = $_POST["userid"];
-            $password = $_POST["password"];
             
-            $sql= "SELECT * FROM `user_handle` WHERE `user_id` = '$userid'";
+            $password = $_POST["password"];
+            $sql= "SELECT * FROM `user_handle` WHERE `user_id` = '$userid' and `password`='$password'";
             $result = mysqli_query($conn, $sql);
             $numRows = mysqli_num_rows($result);
-
             
-            
-
             if ($num = mysqli_fetch_assoc($result)) {
 
                 $_SESSION["userid"] = $num["user_id"];
                 $_SESSION["pass"] = $num["password"];
     
-                $_SESSION["loogedin"] = $numRows;
-
+                $_SESSION["loggedin"] = $numRows;
             }
+            
+            
         }
+        //echo $_SESSION["loggedin"];
+        
         if (isset($_SESSION["userid"])) {
-            if ($_SESSION["loogedin"]==1) {
+           
+            if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == 1) {
                 echo '<div class="handler-container mt-3">
                         <div class="container">
                             <h3 class="text-center">Owner Handle Side Page</h3>
@@ -88,9 +89,9 @@
                         </div>
                     </div>';
             }
-            // else {
-            //     header("Location: index.php");
-            // }
+            else {
+                header("Location: index.php?loggin=0");
+            }
 
             // handle posted recipes
 

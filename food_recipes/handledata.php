@@ -5,7 +5,7 @@ if (isset($_GET["logout"])) {
     echo "loading.................";
     session_destroy();
     
-    header("Location: index.php");
+    header("Location: /food_recipes");
 
 }
 else {
